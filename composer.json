@@ -26,5 +26,15 @@
         "psr-4": {
             "Itigoppo\\BacklogApi\\Test\\": "tests/TestCase"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Itigoppo\\BacklogApi\\Providers\\LaravelServiceProvider"
+            ],
+            "aliases": {
+                "BacklogApi": "Itigoppo\\BacklogApi\\Facades\\Backlog"
+            }
+        }
     }
 }
