@@ -1,5 +1,7 @@
-# Backlog API Library for PHP
+# Backlog API Library for Laravel
 [![Build Status](https://travis-ci.org/itigoppo/backlog-api.svg?branch=master)](https://travis-ci.org/itigoppo/backlog-api)
+
+This package was made for Laravel
 
 BacklogAPIのPHPライブラリです。
 
@@ -7,20 +9,65 @@ BacklogAPIのPHPライブラリです。
 - Backlog API version 2
     - https://developer.nulab-inc.com/ja/docs/backlog/
 
+# Source
+
+Original source from
+
+https://github.com/itigoppo/backlog-api
+
 # Requirements
-- PHP5.6+
+- PHP ^7.2.5 || ^8.0
+
+# Contents
+
+- [Installation](#installation)
+
 
 # Installation
 
 ```bash
-composer require itigoppo/backlog-api
+composer require phuongnamdang/laravel-backlog-api
 ```
 
 # Usage
 
+Setting .env
+
+BACKLOG_SPACE=companyname
+BACKLOG_SECRET=apisecretkey
+BACKLOG_DOMAIN=jp or com
+
+## Sample
+
 ```php
-$backlog = new Backlog(new ApiKeyConnector('Your Backlog Space ID', 'Your API KEY'[, string $domain = 'jp']));
+namespace App\Http\Controllers;
+
+use Itigoppo\BacklogApi\Backlog\Backlog;
+
+class BacklogController extends Controller
+{
+    public function index(Backlog $backlog) {
+        dump(app('backlog')->users->myself());
+        dump(\BacklogApi::statuses());
+        dump($backlog->users->myself());
+        dd($backlog->projects->load());
+    }
+}
 ```
+## For older Laravel version
+
+Please update app.php for providers and aliases
+
+```php
+'providers' => [
+    Itigoppo\BacklogApi\Providers\LaravelServiceProvider::class,
+],
+'aliases' => [
+    'BacklogApi' => Itigoppo\BacklogApi\Facades\Backlog::class,
+]
+```
+
+# Original document below
 
 $domain部分、お使いのスペースに合わせて変更してください。
 デフォルトは「jp」です。
@@ -762,3 +809,6 @@ $backlog->watchings->delete(int $watching_id);
 $backlog->watchings->markAsRead(int $watching_id);
 ```
 
+# License
+
+The MIT License (MIT).
